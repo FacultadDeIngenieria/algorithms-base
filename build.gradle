@@ -1,0 +1,41 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+
+idea {
+    project {
+        //Set specific jdk and language level
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+    module {
+        downloadSources = true
+    }
+}
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+    destinationDir new File(rootProject.projectDir, "target/sources")
+    archiveName  project.name + "-src.jar"
+}
+//
+artifacts {
+    archives sourcesJar
+}
+//
+jar {
+    destinationDir = new File(rootProject.projectDir, "target/jars")
+    archiveName = project.name + ".jar"
+}
+//
+
+repositories {
+    // Central Repository
+    mavenCentral()
+}
+
+dependencies {
+    /* Compile scope */
+    implementation 'org.jetbrains:annotations:22.0.0'
+}
