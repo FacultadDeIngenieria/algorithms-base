@@ -3,6 +3,18 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
+version = '1.1'
+
+repositories {
+    // Central Repository
+    mavenCentral()
+}
+
+dependencies {
+    /* Compile scope */
+    implementation 'org.jetbrains:annotations:22.0.0'
+}
+
 idea {
     project {
         //Set specific jdk and language level
@@ -11,6 +23,23 @@ idea {
     }
     module {
         downloadSources = true
+    }
+}
+
+def jarFiles = new File(rootProject.projectDir, "target/jars")
+def sourcesFiles = new File(rootProject.projectDir, "target/sources")
+def templateFiles = new File(rootProject.projectDir, "target/template")
+
+task(template, type: Copy) {
+    from(jarFiles)
+    into(templateFiles)
+}
+
+task cleanTemplate(type: Delete) {
+    delete {
+        jarFiles
+        sourcesFiles
+        templateFiles
     }
 }
 
@@ -25,7 +54,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/FacultadDeIngenieria/anaydis-jars")
+            url = uri("https://maven.pkg.github.com/FacultadDeIngenieria/algorithms-jars")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GH_USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("GH_TOKEN")
@@ -50,14 +79,24 @@ jar {
     destinationDir = new File(rootProject.projectDir, "target/jars")
     archiveName = project.name + ".jar"
 }
-//
 
-repositories {
-    // Central Repository
-    mavenCentral()
+template.dependsOn {
+    jar
+    sourcesJar
+}
+//
+clean.dependsOn cleanTemplate
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
 }
 
-dependencies {
-    /* Compile scope */
-    implementation 'org.jetbrains:annotations:22.0.0'
+tasks.withType(JavaExec).configureEach {
+    javaLauncher.set(javaToolchains.launcherFor(java.toolchain))
+}
+
+wrapper {
+    gradleVersion = '7.5'
 }
