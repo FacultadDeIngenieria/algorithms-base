@@ -1,7 +1,6 @@
 package algorithms.queue;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
 import java.util.NoSuchElementException;
 
 /**
@@ -17,7 +16,7 @@ import java.util.NoSuchElementException;
  *   <li>PriorityQueue</li>
  * </ul>
  */
-public interface Queue<E> extends Serializable {
+public interface Queue<E> extends Iterable<E> {
 
     /**
      * Adds a new item to this queue.
