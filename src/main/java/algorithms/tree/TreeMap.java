@@ -65,7 +65,13 @@ public interface TreeMap<K,V> {
     V put(@NotNull final K key, final V value);
 
     /**
+     * Removes the mapping for a key from this map if it is present
+     * (optional operation).   More formally, if this map contains a mapping
+     * from key <tt>k</tt> to value <tt>v</tt> such that
+     * <code>(key==null ?  k==null : key.equals(k))</code>, that mapping
+     * is removed.  (The map can contain at most one such mapping.)
      *
+     * @param key key with which the specified value is to be removed
      */
     void remove(K key);
 
