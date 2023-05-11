@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  *   <li>LinkedListStack</li>
  * </ul>
  */
-public interface Stack<E> {
+public interface Stack<E> extends Iterable<E> {
     //~ Methods ..................................................................................................................
     /**
      * Adds a new item to the Stack
