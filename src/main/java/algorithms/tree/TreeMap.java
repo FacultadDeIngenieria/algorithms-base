@@ -46,7 +46,6 @@ public interface TreeMap<K,V> {
      * @param key the key whose associated value is to be returned
      * @return the value to which the specified key is mapped, or
      *         {@code null} if this map contains no mapping for the key
-     * @throws NullPointerException if the specified key is null
      */
     V get(@NotNull final K key);
 
@@ -59,10 +58,8 @@ public interface TreeMap<K,V> {
      *
      * @param key key with which the specified value is to be associated
      * @param value value to be associated with the specified key
-     * @return the previous value associated with key, or null if there was no mapping for key.
-     * @throws NullPointerException if the specified key is null
      */
-    V put(@NotNull final K key, final V value);
+    void put(@NotNull final K key, final V value);
 
     /**
      * Removes the mapping for a key from this map if it is present
@@ -73,7 +70,7 @@ public interface TreeMap<K,V> {
      *
      * @param key key with which the specified value is to be removed
      */
-    void remove(K key);
+    void remove(@NotNull K key);
 
     /**
      * Removes all of the mappings from this map. The map will be empty after this call returns.
