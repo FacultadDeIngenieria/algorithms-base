@@ -11,9 +11,19 @@ public class Node<K, V> {
         this.value = val;
     }
 
+    public Node(K key, V val, Node<K, V> left, Node<K, V> right) {
+        this(key, val);
+        this.left = left;
+        this.right = right;
+    }
+
     public Node(K key, V val, boolean color) {
-        this.key = key;
-        this.value = val;
+        this(key, val);
+        this.color = color;
+    }
+
+    public Node(K key, V val, boolean color, Node<K, V> left, Node<K, V> right) {
+        this(key, val, left, right);
         this.color = color;
     }
 }
